@@ -32,7 +32,7 @@ B. Optional (But Highly Impressive) Advanced Tasks:
 ● Audit Logging: Maintain a log of all user actions (task created, assigned, deleted, updated) for transparency.  
    
 ⚙️ Technical Specifications:  
-● Frontend: ReactJs with vite (Specified Next.js for now will work with react and if got time will update project with Next.js)  
+● Frontend: ReactJs with vite (Specified Next.js but for now will work with react and if got time will update project with Next.js)  
 ● Backend: Node.js Express  
 ● Database: MongoDB  
 ● Version Control: Github (Here)  
