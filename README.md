@@ -5,11 +5,8 @@
 Project Task-Manager by Devansh
 
 Purpose/Goal – To develop a feature-rich application that demonstrates my proficiency in software development, problem-solving, and understanding of real-world scenarios.
-
 Target users – Interviewer and Probably myself for my personal projects because other task managers costs a lot.
-
 Business objectives – Make project management much easier and trackable.
-
 📋 Requirements Specification
 A. Core Requirements
 ✅ User Authentication:
