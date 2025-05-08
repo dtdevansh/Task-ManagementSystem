@@ -21,7 +21,7 @@ const logSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      maxlenggth: 50,
+      maxlength: 50,
       minLength: 5,
     },
   },
