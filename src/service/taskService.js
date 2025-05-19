@@ -1,3 +1,5 @@
+const { ObjectId } = require("mongodb");
+
 const User = require("../model/users");
 const Role = require("../model/role");
 const Task = require("../model/task");
@@ -62,9 +64,67 @@ const getTask = async (taskId) => {
     manager: managerRole,
   };
 };
-const getCreatedTasks = async (userId) => {};
+const getCreatedTasks = async (userId) => {
+  const getTasksPipeline = [
+    {
+      $match: {
+        user: new ObjectId(userId),
+        role: "manager",
+      },
+    },
+    {
+      $lookup: {
+        from: "tasks",
+        localField: "task",
+        foreignField: "_id",
+        as: "createdTasks",
+      },
+    },
+    {
+      $project: {
+        role: 1,
+        createdTasks: 1,
+      },
+    },
+  ];
+  const tasks = await Role.aggregate(getTasksPipeline);
+  if (!tasks || tasks.length === 0) {
+    throw new Error("No tasks found");
+  }
+  const taskObj = tasks?.[0]?.createdTasks;
+  return taskObj;
+};
 
-const getAssignedTasks = async (userId) => {};
+const getAssignedTasks = async (userId) => {
+  const getTasksPipeline = [
+    {
+      $match: {
+        user: new ObjectId(userId),
+        role: "user",
+      },
+    },
+    {
+      $lookup: {
+        from: "tasks",
+        localField: "task",
+        foreignField: "_id",
+        as: "assignedTasks",
+      },
+    },
+    {
+      $project: {
+        role: 1,
+        assignedTasks: 1,
+      },
+    },
+  ];
+  const tasks = await Role.aggregate(getTasksPipeline);
+  if (!tasks || tasks.length === 0) {
+    throw new Error("No tasks found");
+  }
+  const taskObj = tasks?.[0]?.assignedTasks;
+  return taskObj;
+};
 
 const updateTask = async (req) => {
   const dataValidation = validationTaskUpdate(req);

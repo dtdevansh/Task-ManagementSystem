@@ -37,6 +37,33 @@ const getTaskController = async (req, res) => {
   }
 };
 
+const getCreatedTasksController = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const tasks = await getCreatedTasks(userId);
+    if (!tasks) {
+      throw new Error({ message: `No tasks found for user with id ${userId}` });
+    }
+    SuccessResponse(res, 200, "Tasks found successfully", tasks);
+  } catch (err) {
+    console.error(err);
+    ErrorResponse(res, 400, err.message);
+  }
+};
+const getAssignedTasksController = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const tasks = await getAssignedTasks(userId);
+    if (!tasks) {
+      throw new Error({ message: `No tasks found for user with id ${userId}` });
+    }
+    SuccessResponse(res, 200, "Tasks found successfully", tasks);
+  } catch (err) {
+    console.error(err);
+    ErrorResponse(res, 400, err.message);
+  }
+};
+
 const deleteTaskController = async (req, res) => {
   try {
     const task = await deleteTask(req.body);
@@ -68,4 +95,6 @@ module.exports = {
   getTaskController,
   deleteTaskController,
   updateTaskController,
+  getCreatedTasksController,
+  getAssignedTasksController,
 };
